@@ -45,6 +45,9 @@ export default function Dashboard() {
 
   console.log({ allChats });
 
+  //get list of topics
+  const topics = Object.keys(allChats);
+
   const [textValue, changeTextValue] = React.useState("");
 
   return (
@@ -59,9 +62,9 @@ export default function Dashboard() {
         <div className={classes.flex}>
           <div className={classes.topicsWindow}>
             <List>
-              {["topic"].map((topic) => (
+              {topics.map(topic => (
                 <ListItem key={topic} button>
-                  <ListItemText primary="topic" />
+                  <ListItemText primary={topic} />
                 </ListItem>
               ))}
             </List>
