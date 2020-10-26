@@ -38,6 +38,9 @@ function sendChatAction(value) {
 export default function Store(props) {
   if (!socket) {
     socket = io(":3000");
+    socket.on('chat message', function(msg){
+        console.log({msg});
+    });
   }
 
   const user = 'ruya' + Math.random(100).toFixed(2);
