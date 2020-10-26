@@ -1,5 +1,5 @@
 import React from "react";
-import io from 'socket.io-client';
+import io from "socket.io-client";
 
 export const CTX = React.createContext();
 
@@ -32,15 +32,21 @@ function reducer(state, action) {
 let socket;
 
 function sendChatAction(value) {
-    socket.emit('chat message', value);
+  socket.emit("chat message", value);
 }
 
 export default function Store(props) {
+  if (!socket) {
+    socket = io(":3000");
+  }
 
-    if(!socket) {
-        socket = io(':3000')
-    }
+  const user = 'ruya' + Math.random(100).toFixed(2);
+
   const [allChats] = React.useReducer(reducer, initState);
 
-  return <CTX.Provider value={{allChats, sendChatAction}}>{props.children}</CTX.Provider>;
+  return (
+    <CTX.Provider value={{ allChats, sendChatAction, user }}>
+      {props.children}
+    </CTX.Provider>
+  );
 }
