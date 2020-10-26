@@ -41,7 +41,7 @@ export default function Dashboard() {
   const classes = useStyles();
 
   //CTX store
-  const [allChats] = React.useContext(CTX);
+  const { allChats, sendChatAction } = React.useContext(CTX);
   const topics = Object.keys(allChats);
 
   //local state
@@ -60,13 +60,15 @@ export default function Dashboard() {
         <div className={classes.flex}>
           <div className={classes.topicsWindow}>
             <List>
-              {
-              topics.map(topic => (
-                <ListItem onClick={e => changeActiveTopic(e.target.innerText)} key={topic} button>
+              {topics.map((topic) => (
+                <ListItem
+                  onClick={(e) => changeActiveTopic(e.target.innerText)}
+                  key={topic}
+                  button
+                >
                   <ListItemText primary={topic} />
                 </ListItem>
-              ))
-              }
+              ))}
             </List>
           </div>
           <div className={classes.chatWindow}>
@@ -87,7 +89,15 @@ export default function Dashboard() {
             value={textValue}
             onChange={(e) => changeTextValue(e.target.value)}
           />
-          <Button variant="contained" color="primary">
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            onClick={() => {
+              sendChatAction(textValue);
+              changeTextValue('');
+            }}
+          >
             Send
           </Button>
         </div>
