@@ -15,4 +15,4 @@ io.on('connection', (socket) => {
   });
   
 
-http.listen(process.env.PORT || 5000)
+http.listen(process.env.PORT, '0.0.0.0')
